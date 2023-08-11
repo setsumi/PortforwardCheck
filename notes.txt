@@ -1,0 +1,33 @@
+﻿-----------------------------------------------------
+http://icanhazip.com
+http://whatismyip.akamai.com
+http://api.ipify.org
+
+-----------------------------------------------------
+TCP
+
+auto ip+port
+http://tools.eti.pw/port-scanner.php?addr=255.255.255.255&port=12345
+https://2ip.io/check-port/?port=12345
+
+
+auto ip
+https://portscaner.com/
+https://portchecker.co/
+https://www.portcheckers.com/
+https://router-network.com/tools/port-checker
+https://dnschecker.org/port-scanner.php
+https://myopenports.com/
+https://www.portchecktool.com/
+https://port.tools/port-checker-ipv4/
+https://www.yougetsignal.com/tools/open-ports/
+https://videos.cctvcamerapros.com/check-open-port-forwarding-tool
+https://www.htmlstrip.com/open-port-checker
+https://www.dynu.com/NetworkTools/PortCheck
+https://www.dnsissue.com/port-checker/index.php
+
+
+no auto ip
+https://nettoolsonline.com/open-port-check/
+https://portscanner.standingtech.com/
+https://coding.tools/port-checker

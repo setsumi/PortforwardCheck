@@ -1,0 +1,26 @@
+# Build dirs
+/Debug
+/Release
+/Win64
+__astcache
+__history
+__recovery
+
+# Intermediate Build files
+*.gch
+*.map
+*.obj
+*.pch
+*.tds
+
+*.~*
+*.#*
+
+*.local
+*.stat
+*.dsk
+
+# Output files
+#/**/*.dll
+#/**/*.lib
+#/**/*.exe

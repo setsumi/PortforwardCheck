@@ -33,6 +33,73 @@ namespace config
 	int portNumber = 1;
 	bool isProtocolTCP = true;
 	bool isAutoMode = false;
+	bool usePortCheck = false;
+	String PortCheckTcpUrl =
+		L"http://portchecker.portforward.com/portcheck3.cgi?port={{PORT}}&protocol=tcp&version=0";
+	String PortCheckUdpUrl =
+		L"http://portchecker.portforward.com/portcheck3.cgi?port={{PORT}}&protocol=udp&version=0";
+	String PortCheckUserAgent = L"PFPortChecker/1.0";
+}
+
+// ---------------------------------------------------------------------------
+class PortCheckThread : public TThread
+{
+protected:
+	virtual void __fastcall Execute();
+
+public:
+	__fastcall PortCheckThread(String url);
+
+private:
+	String _url;
+};
+
+__fastcall PortCheckThread::PortCheckThread(String url) : TThread(true)
+{
+	FreeOnTerminate = true;
+	// setup other thread parameters as needed...
+	_url = url;
+}
+
+void __fastcall PortCheckThread::Execute()
+{
+	// do work here ...
+	// if you need to access the UI controls,
+	// use the TThread::Synchronize() method for that
+
+	TIdHTTP *http = new TIdHTTP(NULL);
+	http->ProtocolVersion = pv1_0; // HTTP 1.0
+	http->Request->UserAgent = L"PFPortChecker/1.0";
+	http->Request->Accept = L"";
+	http->Request->Connection = L"close";
+	try
+	{
+		try
+		{
+			Form1->Log(L"http →Request service...");
+			String result = http->Get(_url);
+			Form1->Log((String)L"http ←Responce: " + result);
+		}
+		catch (Exception &ex)
+		{
+			Form1->Log((String)L"http ←Error: " + ex.Message);
+		}
+	}
+	__finally
+	{
+		delete http;
+	}
+}
+// How to use:
+// TMyThread *thrd = new TMyThread();
+// thrd->OnTerminate = &ThreadTerminated;
+// thrd->Resume();
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::PortCheckThreadTerminated(TObject *Sender)
+{
+	// thread is finished with its work ...
+	btnOpenScanner->Enabled = true;
 }
 
 // ---------------------------------------------------------------------------
@@ -41,7 +108,21 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
 	chkAutoMode->Hint =
 		L"◆ One click mode ◆\n" L"Auto-press buttons ② and ③ after server is started with ①\n"
 		L"Saves extra manual clicks.";
+
+	reBottomMsg->Clear();
+	reBottomMsg->SelText = L"↑ If a ";
+	reBottomMsg->SelAttributes->Style = TFontStyles() << fsUnderline;
+	reBottomMsg->SelText = L"TCP Connect";
+	reBottomMsg->SelAttributes->Style = TFontStyles();
+	reBottomMsg->SelText = L" or ";
+	reBottomMsg->SelAttributes->Style = TFontStyles() << fsUnderline;
+	reBottomMsg->SelText = L"UDP Get";
+	reBottomMsg->SelAttributes->Style = TFontStyles();
+	reBottomMsg->SelText =
+		L" response is received, then the Port is accessible for this protocol, otherwise the Port is not accessible.";
+
 	Load();
+	UpdateGUI();
 }
 
 // ---------------------------------------------------------------------------
@@ -209,9 +290,16 @@ void __fastcall TForm1::UDPServerUDPRead(TIdUDPListenerThread *AThread,
 	const TIdBytes AData, TIdSocketHandle *ABinding)
 {
 	String ip = ABinding->PeerIP;
+	int len = AData.Length;
+	String data = BytesToHexStr(AData);
+	if ((len > 15 && len < 100) && data.Pos
+		(L"50 6F 72 74 46 6F 72 77 61 72 64 2E 63 6F 6D") != 0)
+	{
+		len = 2;
+		data = L"4F 4B";
+	}
 	String msg;
-	msg.printf(L"UDP ←Get [%s] (%d): %s", ip.w_str(), AData.Length,
-		BytesToHexStr(AData).w_str());
+	msg.printf(L"UDP ←Get [%s] (%d): %s", ip.w_str(), len, data.w_str());
 	Log(msg);
 }
 
@@ -272,6 +360,32 @@ void __fastcall TForm1::btnOpenScannerClick(TObject *Sender)
 			MB_OK | MB_ICONWARNING);
 		return;
 	}
+
+	// use PortCheck service
+	if (config::usePortCheck)
+	{
+		btnOpenScanner->Enabled = false;
+
+		String url;
+		int port;
+		if (TCPServer->Active)
+		{
+			url = config::PortCheckTcpUrl;
+			port = TCPServer->Bindings->DefaultPort;
+		}
+		else
+		{
+			url = config::PortCheckUdpUrl;
+			port = UDPServer->Bindings->DefaultPort;
+		}
+		PortCheckThread *thrd =
+			new PortCheckThread(FormatScannerServiceURL(url, L"", port));
+		thrd->OnTerminate = &PortCheckThreadTerminated;
+		thrd->Resume();
+		return;
+	}
+
+	// use web service
 	cbScannerService->Text = cbScannerService->Text.Trim();
 	const String &url = cbScannerService->Text;
 	if (url.Pos(L"http") == 1 || url.Pos(L"HTTP") == 1); //
@@ -366,6 +480,7 @@ void TForm1::Load()
 		config::ipServLst.push_back(L"http://api.ipify.org");
 
 		Save();
+		return;
 	}
 
 	CoInitialize(0);
@@ -376,46 +491,50 @@ void TForm1::Load()
 
 	// find root node
 	const _di_IXMLNode root = document->ChildNodes->FindNode(L"Config");
-	if (root != NULL)
+	// get attributes
+	if (root->HasAttribute(L"serverTimeout"))
+		config::serverTimeout = (int)root->Attributes[L"serverTimeout"];
+
+	if (root->HasAttribute(L"tcpReadTimeout"))
+		config::tcpReadTimeout = (int)root->Attributes[L"tcpReadTimeout"];
+
+	if (root->HasAttribute(L"tcpService"))
+		config::tcpService = root->Attributes[L"tcpService"];
+
+	if (root->HasAttribute(L"udpService"))
+		config::udpService = root->Attributes[L"udpService"];
+
+	if (root->HasAttribute(L"ipService"))
+		config::ipService = root->Attributes[L"ipService"];
+
+	if (root->HasAttribute(L"portNumber"))
 	{
-		// get attributes
-		if (root->HasAttribute(L"serverTimeout"))
-			config::serverTimeout = (int)root->Attributes[L"serverTimeout"];
+		config::portNumber = (int)root->Attributes[L"portNumber"];
+		udPort->Position = config::portNumber; // GUI
+	}
 
-		if (root->HasAttribute(L"tcpReadTimeout"))
-			config::tcpReadTimeout = (int)root->Attributes[L"tcpReadTimeout"];
+	if (root->HasAttribute(L"isProtocolTCP"))
+	{
+		str = root->Attributes[L"isProtocolTCP"];
+		config::isProtocolTCP = str == L"true";
+		if (config::isProtocolTCP)
+			rdbTCP->Checked = true; // GUI
+		else
+			rdbUDP->Checked = true;
+	}
 
-		if (root->HasAttribute(L"tcpService"))
-			config::tcpService = root->Attributes[L"tcpService"];
+	if (root->HasAttribute(L"isAutoMode"))
+	{
+		str = root->Attributes[L"isAutoMode"];
+		config::isAutoMode = str == L"true";
+		chkAutoMode->Checked = config::isAutoMode; // GUI
+	}
 
-		if (root->HasAttribute(L"udpService"))
-			config::udpService = root->Attributes[L"udpService"];
-
-		if (root->HasAttribute(L"ipService"))
-			config::ipService = root->Attributes[L"ipService"];
-
-		if (root->HasAttribute(L"portNumber"))
-		{
-			config::portNumber = (int)root->Attributes[L"portNumber"];
-			udPort->Position = config::portNumber; // GUI
-		}
-
-		if (root->HasAttribute(L"isProtocolTCP"))
-		{
-			str = root->Attributes[L"isProtocolTCP"];
-			config::isProtocolTCP = str == L"true";
-			if (config::isProtocolTCP)
-				rdbTCP->Checked = true; // GUI
-			else
-				rdbUDP->Checked = true;
-		}
-
-		if (root->HasAttribute(L"isAutoMode"))
-		{
-			str = root->Attributes[L"isAutoMode"];
-			config::isAutoMode = str == L"true";
-			chkAutoMode->Checked = config::isAutoMode; // GUI
-		}
+	if (root->HasAttribute(L"usePortCheck"))
+	{
+		str = root->Attributes[L"usePortCheck"];
+		config::usePortCheck = str == L"true";
+		chkPortCheck->Checked = config::usePortCheck; // GUI
 	}
 
 	// find TCP services node
@@ -473,6 +592,15 @@ void TForm1::Load()
 	else
 		cbPublicIPService->Text = config::ipService;
 
+	// find PortCheck service node
+	node0 = root->ChildNodes->FindNode(L"PortCheck");
+	if (node0 != NULL)
+	{
+		config::PortCheckTcpUrl = node0->Attributes[L"TcpUrl"];
+		config::PortCheckUdpUrl = node0->Attributes[L"UdpUrl"];
+		config::PortCheckUserAgent = node0->Attributes[L"UserAgent"];
+	}
+
 	document->Release();
 	CoUninitialize();
 }
@@ -498,6 +626,7 @@ void TForm1::Save()
 	root->Attributes[L"portNumber"] = config::portNumber;
 	root->Attributes[L"isProtocolTCP"] = config::isProtocolTCP;
 	root->Attributes[L"isAutoMode"] = config::isAutoMode;
+	root->Attributes[L"usePortCheck"] = config::usePortCheck;
 
 	_di_IXMLNode node0 = document->CreateNode(L"TcpServices", ntElement, L"");
 	root->ChildNodes->Add(node0);
@@ -525,6 +654,12 @@ void TForm1::Save()
 		node1->Attributes[L"Url"] = i;
 		node0->ChildNodes->Add(node1);
 	}
+
+	node0 = document->CreateNode(L"PortCheck", ntElement, L"");
+	root->ChildNodes->Add(node0);
+	node0->Attributes[L"TcpUrl"] = config::PortCheckTcpUrl;
+	node0->Attributes[L"UdpUrl"] = config::PortCheckUdpUrl;
+	node0->Attributes[L"UserAgent"] = config::PortCheckUserAgent;
 
 	document->SaveToFile(config::fileName);
 	document->Release();
@@ -555,11 +690,39 @@ void __fastcall TForm1::chkAutoModeClick(TObject *Sender)
 }
 
 // ---------------------------------------------------------------------------
+void __fastcall TForm1::chkPortCheckClick(TObject *Sender)
+{
+	config::usePortCheck = chkPortCheck->Checked;
+	UpdateGUI();
+}
+
+// ---------------------------------------------------------------------------
 void __fastcall TForm1::cbPublicIPServiceEnter(TObject *Sender)
 {
 	// suppress autoselect text in comboboxes
 	PostMessage(cbPublicIPService->Handle, CB_SETEDITSEL, (WPARAM) - 1, 0);
 	PostMessage(cbScannerService->Handle, CB_SETEDITSEL, (WPARAM) - 1, 0);
+}
+
+// ---------------------------------------------------------------------------
+void TForm1::UpdateGUI()
+{
+	if (config::usePortCheck)
+	{
+		btnOpenScanner->Caption = L"③ Call";
+		btnOpenScanner->Hint = L"Query PortCheck™ service";
+		cbScannerService->Color = clBtnFace;
+		cbScannerService->Enabled = false;
+		lblScannerService->Enabled = false;
+	}
+	else
+	{
+		btnOpenScanner->Caption = L"③ Open";
+		btnOpenScanner->Hint = L"Open port check website in Browser";
+		cbScannerService->Color = clWindow;
+		cbScannerService->Enabled = true;
+		lblScannerService->Enabled = true;
+	}
 }
 
 // ---------------------------------------------------------------------------

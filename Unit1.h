@@ -44,15 +44,17 @@ __published: // IDE-managed Components
 	TLabel *Label3;
 	TLabel *Label4;
 	TLabel *Label5;
-	TLabel *Label6;
+	TLabel *lblScannerService;
 	TButton *btnOpenScanner;
 	TComboBox *cbPublicIPService;
 	TComboBox *cbScannerService;
-	TLabel *Label7;
 	TButton *btnCopyPort;
 	TButton *btnCopyPublicIP;
 	TCheckBox *chkAutoMode;
 	TTimer *tmrGetPublicIP;
+	TCheckBox *chkPortCheck;
+	TPanel *panelBottomMsg;
+	TRichEdit *reBottomMsg;
 
 	void __fastcall TCPServerAfterBind(TObject *Sender);
 	void __fastcall TCPServerConnect(TIdContext *AContext);
@@ -79,18 +81,23 @@ __published: // IDE-managed Components
 	void __fastcall cbPublicIPServiceEnter(TObject *Sender);
 	void __fastcall tmrGetPublicIPTimer(TObject *Sender);
 	void __fastcall chkAutoModeClick(TObject *Sender);
+	void __fastcall chkPortCheckClick(TObject *Sender);
 
 private: // User declarations
-	void Log(String msg);
+	void __fastcall PortCheckThreadTerminated(TObject *Sender);
+
 	void AddToMemo(String msg);
 	void Stop();
 	String FormatScannerServiceURL(String url, String ip, String port);
 	void Load();
 	void Save();
 	void GetPublicIP();
+	void UpdateGUI();
 
 public: // User declarations
 	__fastcall TForm1(TComponent* Owner);
+
+	void Log(String msg);
 };
 
 // ---------------------------------------------------------------------------

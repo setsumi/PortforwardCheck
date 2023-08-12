@@ -5514,10 +5514,23 @@ object Form1: TForm1
     362)
   PixelsPerInch = 96
   TextHeight = 13
+  object Label4: TLabel
+    Left = 8
+    Top = 72
+    Width = 105
+    Height = 16
+    Caption = 'Public IP address'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object Label1: TLabel
     Left = 16
     Top = 10
-    Width = 23
+    Width = 33
     Height = 16
     Caption = 'Port'
     Font.Charset = DEFAULT_CHARSET
@@ -5530,7 +5543,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 155
     Top = 10
-    Width = 46
+    Width = 70
     Height = 16
     Caption = 'Protocol'
     Font.Charset = DEFAULT_CHARSET
@@ -5543,7 +5556,7 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 355
     Top = 10
-    Width = 38
+    Width = 62
     Height = 16
     Anchors = [akTop, akRight]
     Caption = 'Server'
@@ -5554,23 +5567,10 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
-  object Label4: TLabel
-    Left = 8
-    Top = 72
-    Width = 97
-    Height = 16
-    Caption = 'Public IP address'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label5: TLabel
     Left = 184
     Top = 72
-    Width = 42
+    Width = 65
     Height = 16
     Caption = 'Service'
     Font.Charset = DEFAULT_CHARSET
@@ -5580,38 +5580,18 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
-  object Label6: TLabel
+  object lblScannerService: TLabel
     Left = 8
     Top = 124
-    Width = 105
+    Width = 170
     Height = 16
-    Caption = 'Port Check service'
+    Caption = 'Port check web-service site'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-  end
-  object Label7: TLabel
-    Left = 8
-    Top = 319
-    Width = 460
-    Height = 35
-    Alignment = taCenter
-    Anchors = [akLeft, akRight, akBottom]
-    AutoSize = False
-    Caption = 
-      #8593' If a TCP Connect or UDP Get response is received, then the Por' +
-      't is accessible for this protocol, otherwise the Port is not acc' +
-      'essible.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    WordWrap = True
   end
   object edtPort: TEdit
     Left = 8
@@ -5737,9 +5717,8 @@ object Form1: TForm1
     Top = 143
     Width = 81
     Height = 27
-    Hint = 'Open Port Check website in Browser'
     Anchors = [akTop, akRight]
-    Caption = #9314' Open'
+    Caption = #9314
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -5832,7 +5811,7 @@ object Form1: TForm1
   object chkAutoMode: TCheckBox
     Left = 393
     Top = 71
-    Width = 75
+    Width = 56
     Height = 17
     Anchors = [akTop, akRight]
     Caption = 'Auto'
@@ -5844,6 +5823,61 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 14
     OnClick = chkAutoModeClick
+  end
+  object chkPortCheck: TCheckBox
+    Left = 184
+    Top = 124
+    Width = 169
+    Height = 17
+    Hint = 'Dedicated one, supports both TCP and UDP'
+    Caption = 'Use PortCheck'#8482' service'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 15
+    OnClick = chkPortCheckClick
+  end
+  object panelBottomMsg: TPanel
+    Left = 0
+    Top = 315
+    Width = 476
+    Height = 47
+    Align = alBottom
+    BevelOuter = bvNone
+    Caption = 'panelBottomMsg'
+    Enabled = False
+    TabOrder = 16
+    ExplicitTop = 314
+    DesignSize = (
+      476
+      47)
+    object reBottomMsg: TRichEdit
+      Left = 6
+      Top = 1
+      Width = 460
+      Height = 46
+      Alignment = taCenter
+      Anchors = [akLeft, akRight, akBottom]
+      BorderStyle = bsNone
+      Color = clBtnFace
+      Font.Charset = SHIFTJIS_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Lines.Strings = (
+        
+          #8593' message message message message message message message messag' +
+          'e '
+        'message message message message message')
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      Zoom = 100
+    end
   end
   object UDPServer: TIdUDPServer
     OnStatus = UDPServerStatus

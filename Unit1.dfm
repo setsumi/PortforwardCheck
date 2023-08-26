@@ -5517,7 +5517,7 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 8
     Top = 72
-    Width = 105
+    Width = 97
     Height = 16
     Caption = 'Public IP address'
     Font.Charset = DEFAULT_CHARSET
@@ -5530,7 +5530,7 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 16
     Top = 10
-    Width = 33
+    Width = 23
     Height = 16
     Caption = 'Port'
     Font.Charset = DEFAULT_CHARSET
@@ -5543,7 +5543,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 155
     Top = 10
-    Width = 70
+    Width = 46
     Height = 16
     Caption = 'Protocol'
     Font.Charset = DEFAULT_CHARSET
@@ -5556,7 +5556,7 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 355
     Top = 10
-    Width = 62
+    Width = 38
     Height = 16
     Anchors = [akTop, akRight]
     Caption = 'Server'
@@ -5570,7 +5570,7 @@ object Form1: TForm1
   object Label5: TLabel
     Left = 184
     Top = 72
-    Width = 65
+    Width = 42
     Height = 16
     Caption = 'Service'
     Font.Charset = DEFAULT_CHARSET
@@ -5583,7 +5583,7 @@ object Form1: TForm1
   object lblScannerService: TLabel
     Left = 8
     Top = 124
-    Width = 170
+    Width = 156
     Height = 16
     Caption = 'Port check web-service site'
     Font.Charset = DEFAULT_CHARSET
@@ -5850,7 +5850,6 @@ object Form1: TForm1
     Caption = 'panelBottomMsg'
     Enabled = False
     TabOrder = 16
-    ExplicitTop = 314
     DesignSize = (
       476
       47)

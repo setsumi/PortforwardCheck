@@ -324,6 +324,7 @@ void __fastcall TForm1::tmrGetPublicIPTimer(TObject *Sender)
 void TForm1::GetPublicIP()
 {
 	THTTPClient *client = THTTPClient::Create();
+    client->UserAgent = L"curl/7.55.1";
 	try
 	{
 		edtPublicIP->Text = client->Get(cbPublicIPService->Text)->ContentAsString()
@@ -478,9 +479,9 @@ void TForm1::Load()
 		config::ipServLst.push_back(L"http://icanhazip.com");
 		config::ipServLst.push_back(L"http://whatismyip.akamai.com");
 		config::ipServLst.push_back(L"http://api.ipify.org");
+		config::ipServLst.push_back(L"http://ifconfig.net/");
 
 		Save();
-		return;
 	}
 
 	CoInitialize(0);

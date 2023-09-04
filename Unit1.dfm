@@ -5908,7 +5908,7 @@ object Form1: TForm1
     Enabled = False
     Interval = 300
     OnTimer = tmrGetPublicIPTimer
-    Left = 200
+    Left = 216
     Top = 240
   end
 end

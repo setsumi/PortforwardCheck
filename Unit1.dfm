@@ -5541,7 +5541,7 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 155
+    Left = 211
     Top = 10
     Width = 46
     Height = 16
@@ -5623,9 +5623,9 @@ object Form1: TForm1
     Thousands = False
   end
   object rdbTCP: TRadioButton
-    Left = 128
+    Left = 180
     Top = 37
-    Width = 58
+    Width = 49
     Height = 17
     Caption = 'TCP'
     Checked = True
@@ -5635,14 +5635,14 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     TabStop = True
     OnClick = rdbTCPClick
   end
   object rdbUDP: TRadioButton
-    Left = 200
+    Left = 240
     Top = 37
-    Width = 58
+    Width = 49
     Height = 17
     Caption = 'UDP'
     Font.Charset = DEFAULT_CHARSET
@@ -5651,7 +5651,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     OnClick = rdbTCPClick
   end
   object txtLog: TMemo
@@ -5662,7 +5662,7 @@ object Form1: TForm1
     Anchors = [akLeft, akTop, akRight, akBottom]
     ReadOnly = True
     ScrollBars = ssBoth
-    TabOrder = 11
+    TabOrder = 12
     WordWrap = False
   end
   object btnStop: TButton
@@ -5678,7 +5678,7 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     OnClick = btnStopClick
   end
   object btnGetPublicIP: TButton
@@ -5695,7 +5695,7 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 9
     OnClick = btnGetPublicIPClick
   end
   object edtPublicIP: TEdit
@@ -5710,7 +5710,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 7
   end
   object btnOpenScanner: TButton
     Left = 387
@@ -5725,11 +5725,11 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 11
     OnClick = btnOpenScannerClick
   end
   object btnStart: TButton
-    Left = 285
+    Left = 300
     Top = 32
     Width = 81
     Height = 27
@@ -5742,7 +5742,7 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
     OnClick = btnStartClick
   end
   object cbPublicIPService: TComboBox
@@ -5757,7 +5757,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 8
     OnEnter = cbPublicIPServiceEnter
     OnSelect = cbPublicIPServiceEnter
   end
@@ -5774,7 +5774,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 10
     OnEnter = cbPublicIPServiceEnter
     OnSelect = cbPublicIPServiceEnter
   end
@@ -5790,7 +5790,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 12
+    TabOrder = 13
     OnClick = btnCopyPortClick
   end
   object btnCopyPublicIP: TButton
@@ -5805,7 +5805,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 13
+    TabOrder = 14
     OnClick = btnCopyPublicIPClick
   end
   object chkAutoMode: TCheckBox
@@ -5821,7 +5821,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 15
     OnClick = chkAutoModeClick
   end
   object chkPortCheck: TCheckBox
@@ -5837,7 +5837,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 16
     OnClick = chkPortCheckClick
   end
   object panelBottomMsg: TPanel
@@ -5849,7 +5849,7 @@ object Form1: TForm1
     BevelOuter = bvNone
     Caption = 'panelBottomMsg'
     Enabled = False
-    TabOrder = 16
+    TabOrder = 17
     DesignSize = (
       476
       47)
@@ -5877,6 +5877,22 @@ object Form1: TForm1
       TabOrder = 0
       Zoom = 100
     end
+  end
+  object btnUpnp: TButton
+    Left = 112
+    Top = 32
+    Width = 52
+    Height = 27
+    Anchors = [akTop, akRight]
+    Caption = 'UPnP'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = btnUpnpClick
   end
   object UDPServer: TIdUDPServer
     OnStatus = UDPServerStatus
@@ -5910,5 +5926,17 @@ object Form1: TForm1
     OnTimer = tmrGetPublicIPTimer
     Left = 216
     Top = 240
+  end
+  object menuUpnp: TPopupMenu
+    Left = 296
+    Top = 240
+    object OpenUPnPWizard1: TMenuItem
+      Caption = '&Open UPnP Wizard'
+      OnClick = OpenUPnPWizard1Click
+    end
+    object Help1: TMenuItem
+      Caption = '&Help'
+      OnClick = Help1Click
+    end
   end
 end

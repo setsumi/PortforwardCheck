@@ -11,8 +11,8 @@
 // ---------------------------------------------------------------------------
 String tl_GetModuleName()
 {
-	wchar_t buf[MAX_PATH];
-	GetModuleFileName(NULL, buf, MAX_PATH);
+	wchar_t buf[1024];
+	GetModuleFileName(NULL, buf, 1024);
 	return (String)buf;
 }
 
@@ -83,3 +83,26 @@ String BytesToHexStr(const TIdBytes &bytes)
 }
 
 // ---------------------------------------------------------------------------
+void t_RunProcess(String runcmd)
+{
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+	if (CreateProcess(NULL, runcmd.w_str(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+	{
+		CloseHandle(pi.hThread);
+		CloseHandle(pi.hProcess);
+	}
+	else
+	{
+		String msg;
+		msg.printf(L"CreateProcess failed. Error: %lx\n%s", GetLastError(),
+			runcmd.w_str());
+		throw Exception(msg);
+	}
+}
+
+// ---------------------------------------------------------------------------
+

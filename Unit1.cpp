@@ -324,7 +324,7 @@ void __fastcall TForm1::tmrGetPublicIPTimer(TObject *Sender)
 void TForm1::GetPublicIP()
 {
 	THTTPClient *client = THTTPClient::Create();
-    client->UserAgent = L"curl/7.55.1";
+	client->UserAgent = L"curl/7.55.1";
 	try
 	{
 		edtPublicIP->Text = client->Get(cbPublicIPService->Text)->ContentAsString()
@@ -479,7 +479,7 @@ void TForm1::Load()
 		config::ipServLst.push_back(L"http://icanhazip.com");
 		config::ipServLst.push_back(L"http://whatismyip.akamai.com");
 		config::ipServLst.push_back(L"http://api.ipify.org");
-		config::ipServLst.push_back(L"http://ifconfig.net/");
+		config::ipServLst.push_back(L"http://ifconfig.net");
 
 		Save();
 	}
@@ -724,6 +724,29 @@ void TForm1::UpdateGUI()
 		cbScannerService->Enabled = true;
 		lblScannerService->Enabled = true;
 	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::Help1Click(TObject *Sender)
+{
+	String str =
+		L"If your internet router is configured for automatic UPnP port forwarding, you can use the included UPnP Wizard tool to manually forward a port for testing.\nAfter the testing, do not forget to delete the created port mappings or create them with a Lease Duration of say 120 seconds so that they will be removed automatically after the timeout expires.";
+	MessageBox(Handle, str.w_str(), L"UPnP Information", MB_OK | MB_ICONINFORMATION);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::OpenUPnPWizard1Click(TObject *Sender)
+{
+	String runcmd;
+	runcmd.printf(L"%supnp\\UPNPWizard.exe", tl_GetProgramPath().w_str());
+	t_RunProcess(runcmd);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::btnUpnpClick(TObject *Sender)
+{
+	TPoint pos = ClientToScreen(TPoint(btnUpnp->Left, btnUpnp->Top + btnUpnp->Height));
+	menuUpnp->Popup(pos.X, pos.Y);
 }
 
 // ---------------------------------------------------------------------------

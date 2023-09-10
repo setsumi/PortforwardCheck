@@ -22,6 +22,7 @@
 #include <IdHTTP.hpp>
 #include <IdTCPClient.hpp>
 #include <IdTCPConnection.hpp>
+#include <Vcl.Menus.hpp>
 
 // ---------------------------------------------------------------------------
 class TForm1 : public TForm
@@ -55,6 +56,10 @@ __published: // IDE-managed Components
 	TCheckBox *chkPortCheck;
 	TPanel *panelBottomMsg;
 	TRichEdit *reBottomMsg;
+	TButton *btnUpnp;
+	TPopupMenu *menuUpnp;
+	TMenuItem *OpenUPnPWizard1;
+	TMenuItem *Help1;
 
 	void __fastcall TCPServerAfterBind(TObject *Sender);
 	void __fastcall TCPServerConnect(TIdContext *AContext);
@@ -82,6 +87,9 @@ __published: // IDE-managed Components
 	void __fastcall tmrGetPublicIPTimer(TObject *Sender);
 	void __fastcall chkAutoModeClick(TObject *Sender);
 	void __fastcall chkPortCheckClick(TObject *Sender);
+	void __fastcall Help1Click(TObject *Sender);
+	void __fastcall OpenUPnPWizard1Click(TObject *Sender);
+	void __fastcall btnUpnpClick(TObject *Sender);
 
 private: // User declarations
 	void __fastcall PortCheckThreadTerminated(TObject *Sender);

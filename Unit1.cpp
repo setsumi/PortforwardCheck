@@ -412,7 +412,7 @@ void __fastcall TForm1::btnOpenScannerClick(TObject *Sender)
 	}
 	// update valid Scanner service
 	*service = cbScannerService->Text;
-	ShellExecute(NULL, L"open", FormatScannerServiceURL(url, edtPublicIP->Text,
+	ShellExecute(NULL, NULL, FormatScannerServiceURL(url, edtPublicIP->Text,
 		port).w_str(), NULL, NULL, SW_NORMAL);
 }
 
@@ -452,7 +452,7 @@ void TForm1::Load()
 	{
 		config::tcpServLst.clear();
 		config::tcpServLst.push_back
-			(L"https://check-host.net/check-tcp?host={{IP}}:{{PORT}}");
+			(L"https://check-host.net/check-tcp?host={{IP}}%3A{{PORT}}");
 		config::tcpServLst.push_back
 			(L"http://tools.eti.pw/port-scanner.php?addr={{IP}}&port={{PORT}}");
 		config::tcpServLst.push_back(L"https://2ip.io/check-port/?port={{PORT}}");
@@ -473,7 +473,7 @@ void TForm1::Load()
 
 		config::udpServLst.clear();
 		config::udpServLst.push_back
-			(L"https://check-host.net/check-udp?host={{IP}}:{{PORT}}");
+			(L"https://check-host.net/check-udp?host={{IP}}%3A{{PORT}}");
 
 		config::ipServLst.clear();
 		config::ipServLst.push_back(L"http://icanhazip.com");

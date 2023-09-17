@@ -144,7 +144,7 @@ void TForm1::AddToMemo(String msg)
 void TForm1::Stop()
 {
 	Timer1->Enabled = false;
-	btnStart->Caption = L"① Start";
+	btnStart->Caption = L"① &Start";
 	this->FormStyle = fsNormal;
 
 	if (!TCPServer->Active && !UDPServer->Active)
@@ -711,7 +711,7 @@ void TForm1::UpdateGUI()
 {
 	if (config::usePortCheck)
 	{
-		btnOpenScanner->Caption = L"③ Call";
+		btnOpenScanner->Caption = L"③ Ca&ll";
 		btnOpenScanner->Hint = L"Query PortCheck™ service";
 		cbScannerService->Color = clBtnFace;
 		cbScannerService->Enabled = false;
@@ -719,7 +719,7 @@ void TForm1::UpdateGUI()
 	}
 	else
 	{
-		btnOpenScanner->Caption = L"③ Open";
+		btnOpenScanner->Caption = L"③ &Open";
 		btnOpenScanner->Hint = L"Open port check website in Browser";
 		cbScannerService->Color = clWindow;
 		cbScannerService->Enabled = true;
@@ -754,6 +754,10 @@ void __fastcall TForm1::btnUpnpClick(TObject *Sender)
 void __fastcall TForm1::btnMapClick(TObject *Sender)
 {
 	FormMap->Show();
+	if (FormMap->WindowState == wsMinimized)
+	{
+		FormMap->WindowState = wsNormal;
+	}
 	FormMap->BringToFront();
 }
 // ---------------------------------------------------------------------------

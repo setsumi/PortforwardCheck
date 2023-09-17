@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Anchors = [akLeft, akTop, akRight, akBottom]
-  Caption = 'Portforward Check'
+  Caption = 'PortforwardCheck'
   ClientHeight = 362
   ClientWidth = 490
   Color = clBtnFace
@@ -5599,7 +5599,7 @@ object Form1: TForm1
     Top = 32
     Width = 52
     Height = 27
-    Caption = 'UPnP'
+    Caption = '&UPnP'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
@@ -5643,7 +5643,7 @@ object Form1: TForm1
     Top = 37
     Width = 49
     Height = 17
-    Caption = 'TCP'
+    Caption = '&TCP'
     Checked = True
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -5660,7 +5660,7 @@ object Form1: TForm1
     Top = 37
     Width = 49
     Height = 17
-    Caption = 'UDP'
+    Caption = 'U&DP'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
@@ -5680,7 +5680,6 @@ object Form1: TForm1
     ScrollBars = ssBoth
     TabOrder = 12
     WordWrap = False
-    ExplicitWidth = 458
   end
   object btnStop: TButton
     Left = 401
@@ -5688,7 +5687,7 @@ object Form1: TForm1
     Width = 81
     Height = 27
     Anchors = [akTop, akRight]
-    Caption = 'Stop'
+    Caption = 'Sto&p'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -5697,7 +5696,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 6
     OnClick = btnStopClick
-    ExplicitLeft = 387
   end
   object btnGetPublicIP: TButton
     Left = 401
@@ -5706,7 +5704,7 @@ object Form1: TForm1
     Height = 27
     Hint = 'Determine your public IP address'
     Anchors = [akTop, akRight]
-    Caption = #9313' Get'
+    Caption = #9313' &Get'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -5715,7 +5713,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 9
     OnClick = btnGetPublicIPClick
-    ExplicitLeft = 387
   end
   object edtPublicIP: TEdit
     Left = 8
@@ -5746,7 +5743,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 11
     OnClick = btnOpenScannerClick
-    ExplicitLeft = 387
   end
   object btnStart: TButton
     Left = 314
@@ -5755,7 +5751,7 @@ object Form1: TForm1
     Height = 27
     Hint = 'Start listening server'
     Anchors = [akTop, akRight]
-    Caption = #9312' Start'
+    Caption = #9312' &Start'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -5764,7 +5760,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 5
     OnClick = btnStartClick
-    ExplicitLeft = 300
   end
   object cbPublicIPService: TComboBox
     Left = 184
@@ -5781,7 +5776,6 @@ object Form1: TForm1
     TabOrder = 8
     OnEnter = cbPublicIPServiceEnter
     OnSelect = cbPublicIPServiceEnter
-    ExplicitWidth = 197
   end
   object cbScannerService: TComboBox
     Left = 8
@@ -5799,7 +5793,6 @@ object Form1: TForm1
     TabOrder = 10
     OnEnter = cbPublicIPServiceEnter
     OnSelect = cbPublicIPServiceEnter
-    ExplicitWidth = 373
   end
   object btnCopyPort: TButton
     Left = 45
@@ -5837,7 +5830,7 @@ object Form1: TForm1
     Width = 56
     Height = 17
     Anchors = [akTop, akRight]
-    Caption = 'Auto'
+    Caption = '&Auto'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -5846,7 +5839,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 16
     OnClick = chkAutoModeClick
-    ExplicitLeft = 393
   end
   object chkPortCheck: TCheckBox
     Left = 184
@@ -5854,7 +5846,7 @@ object Form1: TForm1
     Width = 169
     Height = 17
     Hint = 'Dedicated one, supports both TCP and UDP'
-    Caption = 'Use PortCheck'#8482' service'
+    Caption = 'Use Port&Check'#8482' service'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -5874,7 +5866,6 @@ object Form1: TForm1
     Caption = 'panelBottomMsg'
     Enabled = False
     TabOrder = 18
-    ExplicitWidth = 476
     DesignSize = (
       490
       47)
@@ -5900,7 +5891,6 @@ object Form1: TForm1
       ReadOnly = True
       TabOrder = 0
       Zoom = 100
-      ExplicitWidth = 388
     end
   end
   object btnMap: TButton
@@ -5909,7 +5899,7 @@ object Form1: TForm1
     Width = 68
     Height = 27
     Anchors = [akRight, akBottom]
-    Caption = 'Map'
+    Caption = '&Map'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -5918,7 +5908,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 13
     OnClick = btnMapClick
-    ExplicitLeft = 400
   end
   object UDPServer: TIdUDPServer
     OnStatus = UDPServerStatus

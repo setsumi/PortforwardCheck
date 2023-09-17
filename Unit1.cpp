@@ -12,6 +12,7 @@
 
 #include "Unit1.h"
 #include "tools.h"
+#include "UnitMap.h"
 
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -106,7 +107,7 @@ void __fastcall TForm1::PortCheckThreadTerminated(TObject *Sender)
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
 {
 	chkAutoMode->Hint =
-		L"◆ One click mode ◆\n" L"Auto-press buttons ② and ③ after server is started with ①\n"
+		L"◆ One click mode ◆\n" L"Auto-press buttons (2) and (3) after server is started with (1)\n"
 		L"Saves extra manual clicks.";
 
 	reBottomMsg->Clear();
@@ -749,4 +750,10 @@ void __fastcall TForm1::btnUpnpClick(TObject *Sender)
 	menuUpnp->Popup(pos.X, pos.Y);
 }
 
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::btnMapClick(TObject *Sender)
+{
+	FormMap->Show();
+	FormMap->BringToFront();
+}
 // ---------------------------------------------------------------------------

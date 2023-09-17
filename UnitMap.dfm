@@ -1,12 +1,11 @@
-object Form1: TForm1
+object FormMap: TFormMap
   Left = 0
   Top = 0
-  Anchors = [akLeft, akTop, akRight, akBottom]
-  Caption = 'Portforward Check'
-  ClientHeight = 362
-  ClientWidth = 490
+  Caption = 'Network Map'
+  ClientHeight = 278
+  ClientWidth = 753
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -5506,463 +5505,293 @@ object Form1: TForm1
     0000000000000000000000000000000000000000000000000000000000000000
     00000000000000000000000000000000000000000000}
   OldCreateOrder = False
-  ShowHint = True
   OnClose = FormClose
-  OnResize = cbPublicIPServiceEnter
   DesignSize = (
-    490
-    362)
+    753
+    278)
   PixelsPerInch = 96
   TextHeight = 13
-  object Label4: TLabel
+  object shapeWAN: TShape
+    Left = 376
+    Top = 8
+    Width = 369
+    Height = 259
+    Anchors = [akLeft, akTop, akBottom]
+    Brush.Style = bsClear
+    Pen.Style = psDash
+    Shape = stRoundRect
+  end
+  object Shape3: TShape
+    Left = 640
+    Top = 100
+    Width = 89
+    Height = 143
+    Anchors = [akLeft, akTop, akBottom]
+    Brush.Style = bsClear
+  end
+  object shapeLAN: TShape
     Left = 8
-    Top = 72
-    Width = 97
-    Height = 16
-    Caption = 'Public IP address'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
+    Top = 8
+    Width = 369
+    Height = 259
+    Anchors = [akLeft, akTop, akBottom]
+    Brush.Style = bsClear
+    Pen.Style = psDash
+    Shape = stRoundRect
   end
   object Label1: TLabel
-    Left = 16
-    Top = 10
-    Width = 23
-    Height = 16
-    Caption = 'Port'
+    Left = 24
+    Top = 55
+    Width = 126
+    Height = 18
+    Caption = 'This PC (local host)'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
+    Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 211
-    Top = 10
-    Width = 46
-    Height = 16
-    Caption = 'Protocol'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
+    Left = 24
+    Top = 196
+    Width = 94
+    Height = 13
+    Anchors = [akLeft, akBottom]
+    Caption = 'Local (internal) Port'
   end
   object Label3: TLabel
-    Left = 369
-    Top = 10
-    Width = 38
-    Height = 16
-    Anchors = [akTop, akRight]
-    Caption = 'Server'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    ExplicitLeft = 355
+    Left = 314
+    Top = 81
+    Width = 56
+    Height = 13
+    Caption = 'Gateway IP'
   end
-  object Label5: TLabel
-    Left = 184
-    Top = 72
-    Width = 42
-    Height = 16
-    Caption = 'Service'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object lblScannerService: TLabel
-    Left = 8
-    Top = 124
-    Width = 156
-    Height = 16
-    Caption = 'Port check web-service site'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object btnUpnp: TButton
-    Left = 112
-    Top = 32
-    Width = 52
-    Height = 27
-    Caption = 'UPnP'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
-    OnClick = btnUpnpClick
-  end
-  object edtPort: TEdit
-    Left = 8
-    Top = 32
-    Width = 81
-    Height = 27
-    AutoSelect = False
+  object Label4: TLabel
+    Left = 122
+    Top = 19
+    Width = 147
+    Height = 19
+    Caption = 'Local Network (LAN)'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 0
-    Text = '1'
-    OnChange = edtPortChange
-    OnExit = edtPortExit
   end
-  object udPort: TUpDown
-    Left = 89
-    Top = 32
-    Width = 17
-    Height = 27
-    Associate = edtPort
-    Min = 1
-    Max = 65535
-    Position = 1
-    TabOrder = 1
-    Thousands = False
+  object Label5: TLabel
+    Left = 506
+    Top = 19
+    Width = 109
+    Height = 19
+    Caption = 'Internet (WAN)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
-  object rdbTCP: TRadioButton
-    Left = 180
-    Top = 37
-    Width = 49
-    Height = 17
-    Caption = 'TCP'
-    Checked = True
+  object Label6: TLabel
+    Left = 24
+    Top = 81
+    Width = 84
+    Height = 13
+    Caption = 'Local (internal) IP'
+  end
+  object Label7: TLabel
+    Left = 383
+    Top = 81
+    Width = 91
+    Height = 13
+    Caption = 'Public (external) IP'
+  end
+  object Label8: TLabel
+    Left = 383
+    Top = 196
+    Width = 101
+    Height = 13
+    Anchors = [akLeft, akBottom]
+    Caption = 'Public (external) Port'
+  end
+  object Shape2: TShape
+    Left = 240
+    Top = 207
+    Width = 137
+    Height = 36
+    Anchors = [akLeft, akBottom]
+    Brush.Style = bsClear
+    Shape = stRoundRect
+  end
+  object Label9: TLabel
+    Left = 257
+    Top = 214
+    Width = 113
+    Height = 18
+    Anchors = [akLeft, akBottom]
+    Caption = 'Port Forwarding'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = []
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 162
+    Top = 209
+    Width = 77
+    Height = 25
+    Anchors = [akLeft, akBottom]
+    Caption = '<--------'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label11: TLabel
+    Left = 649
+    Top = 153
+    Width = 72
+    Height = 36
+    Alignment = taCenter
+    Caption = 'Remote Host'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label12: TLabel
+    Left = 514
+    Top = 209
+    Width = 125
+    Height = 25
+    Anchors = [akLeft, akBottom]
+    Caption = '<--------------'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label13: TLabel
+    Left = 555
+    Top = 207
+    Width = 60
+    Height = 13
+    Anchors = [akLeft, akBottom]
+    Caption = 'TCP connect'
+  end
+  object Label14: TLabel
+    Left = 555
+    Top = 226
+    Width = 59
+    Height = 13
+    Anchors = [akLeft, akBottom]
+    Caption = 'or UDP send'
+  end
+  object Label15: TLabel
+    Left = 162
+    Top = 136
+    Width = 76
+    Height = 13
+    Caption = '----------------->'
+  end
+  object Label16: TLabel
+    Left = 514
+    Top = 136
+    Width = 124
+    Height = 13
+    Caption = '----------------------------->'
+  end
+  object memoLocalHost: TMemo
+    Left = 24
+    Top = 100
+    Width = 137
+    Height = 89
+    Anchors = [akLeft, akTop, akBottom]
+    Lines.Strings = (
+      'memoLocalHost')
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 0
+    WordWrap = False
+  end
+  object edtLocalPort: TEdit
+    Left = 24
+    Top = 215
+    Width = 137
+    Height = 21
+    Anchors = [akLeft, akBottom]
+    ReadOnly = True
+    TabOrder = 1
+    Text = 'edtLocalPort'
+  end
+  object memoLocalGate: TMemo
+    Left = 240
+    Top = 100
+    Width = 137
+    Height = 89
+    Anchors = [akLeft, akTop, akBottom]
+    Lines.Strings = (
+      'memoLocalGate')
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 2
+    WordWrap = False
+  end
+  object Panel1: TPanel
+    Left = 280
+    Top = 53
+    Width = 185
+    Height = 22
+    BevelOuter = bvNone
+    Caption = 'Router (internet gateway)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
     ParentFont = False
     TabOrder = 3
-    TabStop = True
-    OnClick = rdbTCPClick
   end
-  object rdbUDP: TRadioButton
-    Left = 240
-    Top = 37
-    Width = 49
-    Height = 17
-    Caption = 'UDP'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
-    OnClick = rdbTCPClick
-  end
-  object txtLog: TMemo
-    Left = 8
-    Top = 184
-    Width = 472
-    Height = 129
-    Anchors = [akLeft, akTop, akRight, akBottom]
+  object memoPublicGate: TMemo
+    Left = 376
+    Top = 100
+    Width = 137
+    Height = 89
+    Anchors = [akLeft, akTop, akBottom]
+    Lines.Strings = (
+      'memoPublicGate')
     ReadOnly = True
-    ScrollBars = ssBoth
-    TabOrder = 12
-    WordWrap = False
-    ExplicitWidth = 458
+    TabOrder = 4
   end
-  object btnStop: TButton
-    Left = 401
-    Top = 32
-    Width = 81
-    Height = 27
-    Anchors = [akTop, akRight]
-    Caption = 'Stop'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 6
-    OnClick = btnStopClick
-    ExplicitLeft = 387
-  end
-  object btnGetPublicIP: TButton
-    Left = 401
-    Top = 91
-    Width = 81
-    Height = 27
-    Hint = 'Determine your public IP address'
-    Anchors = [akTop, akRight]
-    Caption = #9313' Get'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 9
-    OnClick = btnGetPublicIPClick
-    ExplicitLeft = 387
-  end
-  object edtPublicIP: TEdit
-    Left = 8
-    Top = 94
-    Width = 170
-    Height = 24
-    AutoSelect = False
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 7
-  end
-  object btnOpenScanner: TButton
-    Left = 401
-    Top = 143
-    Width = 81
-    Height = 27
-    Anchors = [akTop, akRight]
-    Caption = #9314
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 11
-    OnClick = btnOpenScannerClick
-    ExplicitLeft = 387
-  end
-  object btnStart: TButton
-    Left = 314
-    Top = 32
-    Width = 81
-    Height = 27
-    Hint = 'Start listening server'
-    Anchors = [akTop, akRight]
-    Caption = #9312' Start'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
+  object edtPublicPort: TEdit
+    Left = 376
+    Top = 215
+    Width = 137
+    Height = 21
+    Anchors = [akLeft, akBottom]
+    ReadOnly = True
     TabOrder = 5
-    OnClick = btnStartClick
-    ExplicitLeft = 300
+    Text = 'edtPublicPort'
   end
-  object cbPublicIPService: TComboBox
-    Left = 184
-    Top = 94
-    Width = 211
-    Height = 24
-    Anchors = [akLeft, akTop, akRight]
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 8
-    OnEnter = cbPublicIPServiceEnter
-    OnSelect = cbPublicIPServiceEnter
-    ExplicitWidth = 197
-  end
-  object cbScannerService: TComboBox
-    Left = 8
-    Top = 146
-    Width = 387
-    Height = 24
-    Hint = '{{IP}} and {{PORT}} are placeholders for the actual values'
-    Anchors = [akLeft, akTop, akRight]
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 10
-    OnEnter = cbPublicIPServiceEnter
-    OnSelect = cbPublicIPServiceEnter
-    ExplicitWidth = 373
-  end
-  object btnCopyPort: TButton
-    Left = 45
+  object ActionManager1: TActionManager
+    Left = 48
     Top = 8
-    Width = 52
-    Height = 22
-    Caption = 'Copy'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 14
-    OnClick = btnCopyPortClick
-  end
-  object btnCopyPublicIP: TButton
-    Left = 111
-    Top = 70
-    Width = 52
-    Height = 22
-    Caption = 'Copy'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 15
-    OnClick = btnCopyPublicIPClick
-  end
-  object chkAutoMode: TCheckBox
-    Left = 407
-    Top = 71
-    Width = 56
-    Height = 17
-    Anchors = [akTop, akRight]
-    Caption = 'Auto'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 16
-    OnClick = chkAutoModeClick
-    ExplicitLeft = 393
-  end
-  object chkPortCheck: TCheckBox
-    Left = 184
-    Top = 124
-    Width = 169
-    Height = 17
-    Hint = 'Dedicated one, supports both TCP and UDP'
-    Caption = 'Use PortCheck'#8482' service'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 17
-    OnClick = chkPortCheckClick
-  end
-  object panelBottomMsg: TPanel
-    Left = 0
-    Top = 315
-    Width = 490
-    Height = 47
-    Align = alBottom
-    BevelOuter = bvNone
-    Caption = 'panelBottomMsg'
-    Enabled = False
-    TabOrder = 18
-    ExplicitWidth = 476
-    DesignSize = (
-      490
-      47)
-    object reBottomMsg: TRichEdit
-      Left = 6
-      Top = 1
-      Width = 402
-      Height = 46
-      Alignment = taCenter
-      Anchors = [akLeft, akRight, akBottom]
-      BorderStyle = bsNone
-      Color = clBtnFace
-      Font.Charset = SHIFTJIS_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      Lines.Strings = (
-        #8593' message message message message message message message '
-        'message '
-        'message message message message message')
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 0
-      Zoom = 100
-      ExplicitWidth = 388
-    end
-  end
-  object btnMap: TButton
-    Left = 414
-    Top = 324
-    Width = 68
-    Height = 27
-    Anchors = [akRight, akBottom]
-    Caption = 'Map'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 13
-    OnClick = btnMapClick
-    ExplicitLeft = 400
-  end
-  object UDPServer: TIdUDPServer
-    OnStatus = UDPServerStatus
-    Bindings = <>
-    DefaultPort = 0
-    OnAfterBind = UDPServerAfterBind
-    OnUDPRead = UDPServerUDPRead
-    Left = 144
-    Top = 240
-  end
-  object TCPServer: TIdTCPServer
-    OnStatus = TCPServerStatus
-    Bindings = <>
-    DefaultPort = 0
-    OnAfterBind = TCPServerAfterBind
-    OnConnect = TCPServerConnect
-    OnDisconnect = TCPServerDisconnect
-    OnExecute = TCPServerExecute
-    Left = 88
-    Top = 240
-  end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 32
-    Top = 240
-  end
-  object tmrGetPublicIP: TTimer
-    Enabled = False
-    Interval = 300
-    OnTimer = tmrGetPublicIPTimer
-    Left = 216
-    Top = 240
-  end
-  object menuUpnp: TPopupMenu
-    Left = 296
-    Top = 240
-    object OpenUPnPWizard1: TMenuItem
-      Caption = '&Open UPnP Wizard'
-      OnClick = OpenUPnPWizard1Click
-    end
-    object Help1: TMenuItem
-      Caption = '&Help'
-      OnClick = Help1Click
+    StyleName = 'Platform Default'
+    object ActionHide: TAction
+      Caption = 'ActionHide'
+      ShortCut = 27
+      OnExecute = ActionHideExecute
     end
   end
 end

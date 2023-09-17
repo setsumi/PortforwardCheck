@@ -60,6 +60,7 @@ __published: // IDE-managed Components
 	TPopupMenu *menuUpnp;
 	TMenuItem *OpenUPnPWizard1;
 	TMenuItem *Help1;
+	TButton *btnMap;
 
 	void __fastcall TCPServerAfterBind(TObject *Sender);
 	void __fastcall TCPServerConnect(TIdContext *AContext);
@@ -90,6 +91,7 @@ __published: // IDE-managed Components
 	void __fastcall Help1Click(TObject *Sender);
 	void __fastcall OpenUPnPWizard1Click(TObject *Sender);
 	void __fastcall btnUpnpClick(TObject *Sender);
+	void __fastcall btnMapClick(TObject *Sender);
 
 private: // User declarations
 	void __fastcall PortCheckThreadTerminated(TObject *Sender);

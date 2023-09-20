@@ -8,6 +8,7 @@
 #include <list>
 #include <System.Net.HttpClient.hpp>
 #include <System.SysUtils.hpp>
+#include <IdStackWindows.hpp>
 #include <XMLDoc.hpp>
 
 #include "Unit1.h"
@@ -753,6 +754,7 @@ void __fastcall TForm1::btnUpnpClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TForm1::btnMapClick(TObject *Sender)
 {
+	UpdateMap();
 	FormMap->Show();
 	if (FormMap->WindowState == wsMinimized)
 	{
@@ -760,4 +762,57 @@ void __fastcall TForm1::btnMapClick(TObject *Sender)
 	}
 	FormMap->BringToFront();
 }
+
 // ---------------------------------------------------------------------------
+#define SETUIVALUE(var, value) if ((var) != (value)) (var) = (value);
+void TForm1::UpdateMap()
+{
+	// localhost info
+	String str;
+	TStringList *list = new TStringList();
+	TIdStackWindows *stack = new TIdStackWindows();
+	str = stack->HostName + L"\r\n";
+	stack->AddLocalAddressesToList(list);
+	str += list->Text;
+	SETUIVALUE(FormMap->memoLocalHost->Text, str)
+
+	// gateway info
+	try
+	{
+		SETUIVALUE(FormMap->memoLocalGate->Text, GetGateways())
+	}
+	catch (Exception &ex)
+	{
+		SETUIVALUE(FormMap->memoLocalGate->Text, ex.Message)
+	}
+	if (edtPublicIP->Text.IsEmpty())
+	{
+		SETUIVALUE(FormMap->memoPublicGate->Text, L"Press button (2) to determine the public IP address.")
+	}
+	else
+	{
+		SETUIVALUE(FormMap->memoPublicGate->Text, edtPublicIP->Text)
+	}
+	SETUIVALUE(FormMap->edtPublicPort->Text, edtPort->Text)
+
+	delete stack;
+	delete list;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::tmrUITimer(TObject *Sender)
+{
+	if (FormMap->Visible)
+	{
+		UpdateMap();
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::FormShow(TObject *Sender)
+{
+    FormMap->Clear();
+}
+
+//---------------------------------------------------------------------------
+

@@ -52,9 +52,10 @@ __published: // IDE-managed Components
 private: // User declarations
 protected:
 	virtual void __fastcall CreateParams(TCreateParams &Params);
-
 public: // User declarations
 	__fastcall TFormMap(TComponent* Owner);
+
+	void Clear();
 };
 
 // ---------------------------------------------------------------------------

@@ -5518,7 +5518,7 @@ object FormMap: TFormMap
     Height = 259
     Anchors = [akLeft, akTop, akBottom]
     Brush.Style = bsClear
-    Pen.Style = psDash
+    Pen.Style = psDot
     Shape = stRoundRect
   end
   object Shape3: TShape
@@ -5536,7 +5536,7 @@ object FormMap: TFormMap
     Height = 259
     Anchors = [akLeft, akTop, akBottom]
     Brush.Style = bsClear
-    Pen.Style = psDash
+    Pen.Style = psDot
     Shape = stRoundRect
   end
   object Label1: TLabel
@@ -5627,7 +5627,7 @@ object FormMap: TFormMap
   object Label9: TLabel
     Left = 257
     Top = 214
-    Width = 113
+    Width = 101
     Height = 18
     Anchors = [akLeft, akBottom]
     Caption = 'Port Forwarding'
@@ -5653,9 +5653,9 @@ object FormMap: TFormMap
     ParentFont = False
   end
   object Label11: TLabel
-    Left = 649
+    Left = 657
     Top = 153
-    Width = 72
+    Width = 56
     Height = 36
     Alignment = taCenter
     Caption = 'Remote Host'
@@ -5731,7 +5731,7 @@ object FormMap: TFormMap
     Height = 21
     Anchors = [akLeft, akBottom]
     ReadOnly = True
-    TabOrder = 1
+    TabOrder = 3
     Text = 'edtLocalPort'
   end
   object memoLocalGate: TMemo
@@ -5744,7 +5744,7 @@ object FormMap: TFormMap
       'memoLocalGate')
     ReadOnly = True
     ScrollBars = ssVertical
-    TabOrder = 2
+    TabOrder = 1
     WordWrap = False
   end
   object Panel1: TPanel
@@ -5761,7 +5761,7 @@ object FormMap: TFormMap
     Font.Style = []
     ParentBackground = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 5
   end
   object memoPublicGate: TMemo
     Left = 376
@@ -5772,7 +5772,7 @@ object FormMap: TFormMap
     Lines.Strings = (
       'memoPublicGate')
     ReadOnly = True
-    TabOrder = 4
+    TabOrder = 2
   end
   object edtPublicPort: TEdit
     Left = 376
@@ -5781,7 +5781,7 @@ object FormMap: TFormMap
     Height = 21
     Anchors = [akLeft, akBottom]
     ReadOnly = True
-    TabOrder = 5
+    TabOrder = 4
     Text = 'edtPublicPort'
   end
   object ActionManager1: TActionManager

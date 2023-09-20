@@ -15,6 +15,7 @@ String BytesToHexStr(unsigned char *bytes, int count);
 String BytesToHexStr(const TIdBytes &bytes);
 
 void t_RunProcess(String runcmd);
+String GetGateways();
 
 // ---------------------------------------------------------------------------
 #endif

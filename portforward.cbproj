@@ -189,8 +189,8 @@
             <DependentOn>UnitMap.h</DependentOn>
             <BuildOrder>3</BuildOrder>
         </CppCompile>
-        <FormResources Include="Unit1.dfm"/>
         <FormResources Include="UnitMap.dfm"/>
+        <FormResources Include="Unit1.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

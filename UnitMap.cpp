@@ -33,4 +33,15 @@ void __fastcall TFormMap::ActionHideExecute(TObject *Sender)
 {
 	Hide();
 }
+
+// ---------------------------------------------------------------------------
+void TFormMap::Clear()
+{
+	memoLocalHost->Clear();
+	memoLocalGate->Clear();
+	memoPublicGate->Clear();
+	edtLocalPort->Clear();
+	edtPublicPort->Clear();
+}
+
 // ---------------------------------------------------------------------------

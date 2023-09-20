@@ -5509,6 +5509,7 @@ object Form1: TForm1
   ShowHint = True
   OnClose = FormClose
   OnResize = cbPublicIPServiceEnter
+  OnShow = FormShow
   DesignSize = (
     490
     362)
@@ -5871,9 +5872,9 @@ object Form1: TForm1
       47)
     object reBottomMsg: TRichEdit
       Left = 6
-      Top = 1
+      Top = 0
       Width = 402
-      Height = 46
+      Height = 47
       Alignment = taCenter
       Anchors = [akLeft, akRight, akBottom]
       BorderStyle = bsNone
@@ -5953,5 +5954,10 @@ object Form1: TForm1
       Caption = '&Help'
       OnClick = Help1Click
     end
+  end
+  object tmrUI: TTimer
+    OnTimer = tmrUITimer
+    Left = 360
+    Top = 240
   end
 end

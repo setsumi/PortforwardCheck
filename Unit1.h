@@ -61,6 +61,7 @@ __published: // IDE-managed Components
 	TMenuItem *OpenUPnPWizard1;
 	TMenuItem *Help1;
 	TButton *btnMap;
+	TTimer *tmrUI;
 
 	void __fastcall TCPServerAfterBind(TObject *Sender);
 	void __fastcall TCPServerConnect(TIdContext *AContext);
@@ -92,6 +93,8 @@ __published: // IDE-managed Components
 	void __fastcall OpenUPnPWizard1Click(TObject *Sender);
 	void __fastcall btnUpnpClick(TObject *Sender);
 	void __fastcall btnMapClick(TObject *Sender);
+	void __fastcall tmrUITimer(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
 
 private: // User declarations
 	void __fastcall PortCheckThreadTerminated(TObject *Sender);
@@ -103,6 +106,7 @@ private: // User declarations
 	void Save();
 	void GetPublicIP();
 	void UpdateGUI();
+	void UpdateMap();
 
 public: // User declarations
 	__fastcall TForm1(TComponent* Owner);

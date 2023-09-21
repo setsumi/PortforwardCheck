@@ -45,13 +45,16 @@ __published: // IDE-managed Components
 	TLabel *Label16;
 	TActionManager *ActionManager1;
 	TAction *ActionHide;
+	TButton *btnSysInfo;
 
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall ActionHideExecute(TObject *Sender);
+	void __fastcall btnSysInfoClick(TObject *Sender);
 
 private: // User declarations
 protected:
 	virtual void __fastcall CreateParams(TCreateParams &Params);
+
 public: // User declarations
 	__fastcall TFormMap(TComponent* Owner);
 

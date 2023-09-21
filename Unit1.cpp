@@ -33,6 +33,8 @@ namespace config
 	String udpService;
 	String ipService;
 	int portNumber = 1;
+	int portNumberLocal = 1;
+	bool portLocalSame = true;
 	bool isProtocolTCP = true;
 	bool isAutoMode = false;
 	bool usePortCheck = false;
@@ -78,7 +80,6 @@ void __fastcall PortCheckThread::Execute()
 	{
 		try
 		{
-			Form1->Log(L"http →Request service...");
 			String result = http->Get(_url);
 			Form1->Log((String)L"http ←Responce: " + result);
 		}
@@ -145,7 +146,7 @@ void TForm1::AddToMemo(String msg)
 void TForm1::Stop()
 {
 	Timer1->Enabled = false;
-	btnStart->Caption = L"① &Start";
+	btnStart->Caption = L"① Start";
 	this->FormStyle = fsNormal;
 
 	if (!TCPServer->Active && !UDPServer->Active)
@@ -167,7 +168,7 @@ void __fastcall TForm1::btnStartClick(TObject *Sender)
 	if (config::isProtocolTCP)
 	{
 		TCPServer->Bindings->Clear();
-		TCPServer->DefaultPort = udPort->Position;
+		TCPServer->DefaultPort = udPortLocal->Position;
 		TCPServer->Active = true;
 		list = &config::tcpServLst;
 		service = &config::tcpService;
@@ -175,7 +176,7 @@ void __fastcall TForm1::btnStartClick(TObject *Sender)
 	else
 	{
 		UDPServer->Bindings->Clear();
-		UDPServer->DefaultPort = udPort->Position;
+		UDPServer->DefaultPort = udPortLocal->Position;
 		UDPServer->Active = true;
 		list = &config::udpServLst;
 		service = &config::udpService;
@@ -370,17 +371,22 @@ void __fastcall TForm1::btnOpenScannerClick(TObject *Sender)
 		btnOpenScanner->Enabled = false;
 
 		String url;
-		int port;
+		String port;
+		String serv_type;
 		if (TCPServer->Active)
 		{
 			url = config::PortCheckTcpUrl;
-			port = TCPServer->Bindings->DefaultPort;
+			port = edtPort->Text;
+			serv_type = L"TCP";
 		}
 		else
 		{
 			url = config::PortCheckUdpUrl;
-			port = UDPServer->Bindings->DefaultPort;
+			port = edtPort->Text;
+			serv_type = L"UDP";
 		}
+		Log(L"http →Request " + serv_type + L" service for public port " + port +
+			L" ...");
 		PortCheckThread *thrd =
 			new PortCheckThread(FormatScannerServiceURL(url, L"", port));
 		thrd->OnTerminate = &PortCheckThreadTerminated;
@@ -402,20 +408,23 @@ void __fastcall TForm1::btnOpenScannerClick(TObject *Sender)
 
 	String *service;
 	String port;
+	String url_formatted;
 	if (TCPServer->Active)
 	{
-		port = TCPServer->DefaultPort;
+		port = edtPort->Text;
 		service = &config::tcpService;
 	}
 	else
 	{
-		port = UDPServer->DefaultPort;
+		port = edtPort->Text;
 		service = &config::udpService;
 	}
 	// update valid Scanner service
 	*service = cbScannerService->Text;
-	ShellExecute(NULL, NULL, FormatScannerServiceURL(url, edtPublicIP->Text,
-		port).w_str(), NULL, NULL, SW_NORMAL);
+	// open service url in browser
+	url_formatted = FormatScannerServiceURL(url, edtPublicIP->Text, port);
+	Log(L"http →Open: " + url_formatted);
+	ShellExecute(NULL, NULL, url_formatted.w_str(), NULL, NULL, SW_NORMAL);
 }
 
 // ---------------------------------------------------------------------------
@@ -513,32 +522,45 @@ void TForm1::Load()
 	if (root->HasAttribute(L"portNumber"))
 	{
 		config::portNumber = (int)root->Attributes[L"portNumber"];
-		udPort->Position = config::portNumber; // GUI
 	}
+	udPort->Position = config::portNumber; // GUI
+
+	if (root->HasAttribute(L"portNumberLocal"))
+	{
+		config::portNumberLocal = (int)root->Attributes[L"portNumberLocal"];
+	}
+	udPortLocal->Position = config::portNumberLocal; // GUI
+
+	if (root->HasAttribute(L"portLocalSame"))
+	{
+		str = root->Attributes[L"portLocalSame"];
+		config::portLocalSame = str == L"true";
+	}
+	chkPortSame->Checked = config::portLocalSame; // GUI
 
 	if (root->HasAttribute(L"isProtocolTCP"))
 	{
 		str = root->Attributes[L"isProtocolTCP"];
 		config::isProtocolTCP = str == L"true";
-		if (config::isProtocolTCP)
-			rdbTCP->Checked = true; // GUI
-		else
-			rdbUDP->Checked = true;
 	}
+	if (config::isProtocolTCP)
+		rdbTCP->Checked = true; // GUI
+	else
+		rdbUDP->Checked = true;
 
 	if (root->HasAttribute(L"isAutoMode"))
 	{
 		str = root->Attributes[L"isAutoMode"];
 		config::isAutoMode = str == L"true";
-		chkAutoMode->Checked = config::isAutoMode; // GUI
 	}
+	chkAutoMode->Checked = config::isAutoMode; // GUI
 
 	if (root->HasAttribute(L"usePortCheck"))
 	{
 		str = root->Attributes[L"usePortCheck"];
 		config::usePortCheck = str == L"true";
-		chkPortCheck->Checked = config::usePortCheck; // GUI
 	}
+	chkPortCheck->Checked = config::usePortCheck; // GUI
 
 	// find TCP services node
 	config::tcpServLst.clear();
@@ -627,6 +649,8 @@ void TForm1::Save()
 	root->Attributes[L"udpService"] = config::udpService;
 	root->Attributes[L"ipService"] = config::ipService;
 	root->Attributes[L"portNumber"] = config::portNumber;
+	root->Attributes[L"portNumberLocal"] = config::portNumberLocal;
+	root->Attributes[L"portLocalSame"] = config::portLocalSame;
 	root->Attributes[L"isProtocolTCP"] = config::isProtocolTCP;
 	root->Attributes[L"isAutoMode"] = config::isAutoMode;
 	root->Attributes[L"usePortCheck"] = config::usePortCheck;
@@ -673,17 +697,50 @@ void TForm1::Save()
 void __fastcall TForm1::rdbTCPClick(TObject *Sender)
 {
 	config::isProtocolTCP = rdbTCP->Checked;
+	// stop server on protocol change
+	Stop();
 }
 
 // ---------------------------------------------------------------------------
 void __fastcall TForm1::edtPortChange(TObject *Sender)
 {
+	if (config::portLocalSame)
+	{
+		if (Sender == edtPort)
+		{
+			edtPortLocal->Text = edtPort->Text;
+		}
+		else
+		{
+			edtPort->Text = edtPortLocal->Text;
+		}
+	}
+	// stop serber on local port change
+	if (Sender == edtPortLocal)
+	{
+		Stop();
+	}
+
 	config::portNumber = udPort->Position;
+	config::portNumberLocal = udPortLocal->Position;
 }
 
 void __fastcall TForm1::edtPortExit(TObject *Sender)
 {
+	if (config::portLocalSame)
+	{
+		if (Sender == edtPort)
+		{
+			udPortLocal->Position = udPort->Position;
+		}
+		else
+		{
+			udPort->Position = udPortLocal->Position;
+		}
+	}
+
 	edtPort->Text = udPort->Position;
+	edtPortLocal->Text = udPortLocal->Position;
 }
 
 // ---------------------------------------------------------------------------
@@ -712,7 +769,7 @@ void TForm1::UpdateGUI()
 {
 	if (config::usePortCheck)
 	{
-		btnOpenScanner->Caption = L"③ Ca&ll";
+		btnOpenScanner->Caption = L"③ Call";
 		btnOpenScanner->Hint = L"Query PortCheck™ service";
 		cbScannerService->Color = clBtnFace;
 		cbScannerService->Enabled = false;
@@ -720,7 +777,7 @@ void TForm1::UpdateGUI()
 	}
 	else
 	{
-		btnOpenScanner->Caption = L"③ &Open";
+		btnOpenScanner->Caption = L"③ Open";
 		btnOpenScanner->Hint = L"Open port check website in Browser";
 		cbScannerService->Color = clWindow;
 		cbScannerService->Enabled = true;
@@ -765,6 +822,7 @@ void __fastcall TForm1::btnMapClick(TObject *Sender)
 
 // ---------------------------------------------------------------------------
 #define SETUIVALUE(var, value) if ((var) != (value)) (var) = (value);
+
 void TForm1::UpdateMap()
 {
 	// localhost info
@@ -774,26 +832,28 @@ void TForm1::UpdateMap()
 	str = stack->HostName + L"\r\n";
 	stack->AddLocalAddressesToList(list);
 	str += list->Text;
-	SETUIVALUE(FormMap->memoLocalHost->Text, str)
+	SETUIVALUE(FormMap->memoLocalHost->Text, str);
+	SETUIVALUE(FormMap->edtLocalPort->Text, edtPortLocal->Text);
 
 	// gateway info
 	try
 	{
-		SETUIVALUE(FormMap->memoLocalGate->Text, GetGateways())
+		SETUIVALUE(FormMap->memoLocalGate->Text, GetGateways());
 	}
 	catch (Exception &ex)
 	{
-		SETUIVALUE(FormMap->memoLocalGate->Text, ex.Message)
+		SETUIVALUE(FormMap->memoLocalGate->Text, ex.Message);
 	}
 	if (edtPublicIP->Text.IsEmpty())
 	{
-		SETUIVALUE(FormMap->memoPublicGate->Text, L"Press button (2) to determine the public IP address.")
+		SETUIVALUE(FormMap->memoPublicGate->Text,
+			L"Press button (2) to determine the public IP address.");
 	}
 	else
 	{
-		SETUIVALUE(FormMap->memoPublicGate->Text, edtPublicIP->Text)
+		SETUIVALUE(FormMap->memoPublicGate->Text, edtPublicIP->Text);
 	}
-	SETUIVALUE(FormMap->edtPublicPort->Text, edtPort->Text)
+	SETUIVALUE(FormMap->edtPublicPort->Text, edtPort->Text);
 
 	delete stack;
 	delete list;
@@ -811,8 +871,24 @@ void __fastcall TForm1::tmrUITimer(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TForm1::FormShow(TObject *Sender)
 {
-    FormMap->Clear();
+	FormMap->Clear();
 }
 
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::chkPortSameClick(TObject *Sender)
+{
+	config::portLocalSame = chkPortSame->Checked;
 
+	if (chkPortSame->Checked)
+	{
+		udPortLocal->Position = udPort->Position;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TForm1::ActionStopExecute(TObject *Sender)
+{
+	Stop();
+}
+
+// ---------------------------------------------------------------------------

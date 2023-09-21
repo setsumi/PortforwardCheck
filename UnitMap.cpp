@@ -4,6 +4,9 @@
 #pragma hdrstop
 
 #include "UnitMap.h"
+
+#include "tools.h"
+
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -42,6 +45,15 @@ void TFormMap::Clear()
 	memoPublicGate->Clear();
 	edtLocalPort->Clear();
 	edtPublicPort->Clear();
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TFormMap::btnSysInfoClick(TObject *Sender)
+{
+	String cmd;
+	cmd.printf(L"CMD.EXE /K \"ECHO %s && %s\"", btnSysInfo->Hint.w_str(),
+		btnSysInfo->Hint.w_str());
+	t_RunProcess(cmd);
 }
 
 // ---------------------------------------------------------------------------

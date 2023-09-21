@@ -2,7 +2,7 @@ object FormMap: TFormMap
   Left = 0
   Top = 0
   Caption = 'Network Map'
-  ClientHeight = 278
+  ClientHeight = 327
   ClientWidth = 753
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -5505,10 +5505,11 @@ object FormMap: TFormMap
     0000000000000000000000000000000000000000000000000000000000000000
     00000000000000000000000000000000000000000000}
   OldCreateOrder = False
+  ShowHint = True
   OnClose = FormClose
   DesignSize = (
     753
-    278)
+    327)
   PixelsPerInch = 96
   TextHeight = 13
   object shapeWAN: TShape
@@ -5561,7 +5562,7 @@ object FormMap: TFormMap
     Caption = 'Local (internal) Port'
   end
   object Label3: TLabel
-    Left = 314
+    Left = 240
     Top = 81
     Width = 56
     Height = 13
@@ -5783,6 +5784,23 @@ object FormMap: TFormMap
     ReadOnly = True
     TabOrder = 4
     Text = 'edtPublicPort'
+  end
+  object btnSysInfo: TButton
+    Left = 288
+    Top = 284
+    Width = 161
+    Height = 27
+    Hint = 'IPCONFIG /ALL'
+    Anchors = [akLeft, akBottom]
+    Caption = '&System Information'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 6
+    OnClick = btnSysInfoClick
   end
   object ActionManager1: TActionManager
     Left = 48

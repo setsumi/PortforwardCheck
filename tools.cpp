@@ -2,7 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
-//#define _WINSOCK_DEPRECATED_NO_WARNINGS
+// #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 // #include <ws2ipdef.h>
 // #include <ws2tcpip.h>
@@ -113,7 +113,7 @@ void t_RunProcess(String runcmd)
 // ---------------------------------------------------------------------------
 String GetGateways()
 {
-    String rv;
+	String rv;
 	DWORD dwRetVal = 0;
 	/* Variables used to print error messages */
 	LPVOID lpMsgBuf;
@@ -146,10 +146,15 @@ String GetGateways()
 		pAdapter = pAdapterInfo;
 		while (pAdapter)
 		{
-			//print_gateway(pAdapter);
+			// print_gateway(pAdapter);
 			String str;
+			String ip(pAdapter->GatewayList.IpAddress.String);
+			if (ip == L"0.0.0.0")
+			{
+				ip = L"(undefined)";
+			}
 			str.printf(L"%s\r\n%s\r\n", String(pAdapter->Description).w_str(),
-				String(pAdapter->GatewayList.IpAddress.String).w_str());
+				ip.w_str());
 			rv += str;
 
 			pAdapter = pAdapter->Next;

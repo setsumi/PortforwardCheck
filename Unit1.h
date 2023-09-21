@@ -23,6 +23,10 @@
 #include <IdTCPClient.hpp>
 #include <IdTCPConnection.hpp>
 #include <Vcl.Menus.hpp>
+#include <System.Actions.hpp>
+#include <Vcl.ActnList.hpp>
+#include <Vcl.ActnMan.hpp>
+#include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
 
 // ---------------------------------------------------------------------------
 class TForm1 : public TForm
@@ -62,6 +66,13 @@ __published: // IDE-managed Components
 	TMenuItem *Help1;
 	TButton *btnMap;
 	TTimer *tmrUI;
+	TLabel *Label6;
+	TLabel *Label7;
+	TCheckBox *chkPortSame;
+	TEdit *edtPortLocal;
+	TUpDown *udPortLocal;
+	TActionManager *ActionManager1;
+	TAction *ActionStop;
 
 	void __fastcall TCPServerAfterBind(TObject *Sender);
 	void __fastcall TCPServerConnect(TIdContext *AContext);
@@ -95,6 +106,8 @@ __published: // IDE-managed Components
 	void __fastcall btnMapClick(TObject *Sender);
 	void __fastcall tmrUITimer(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
+	void __fastcall chkPortSameClick(TObject *Sender);
+	void __fastcall ActionStopExecute(TObject *Sender);
 
 private: // User declarations
 	void __fastcall PortCheckThreadTerminated(TObject *Sender);

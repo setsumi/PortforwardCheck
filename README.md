@@ -8,4 +8,4 @@ https://github.com/setsumi/PortforwardCheck/releases
 
 ## Screenshot
 
-![image](https://github.com/setsumi/PortforwardCheck/assets/5970554/7b211962-aeed-4c69-82bf-f014ae3b6830)
+![image](https://github.com/setsumi/PortforwardCheck/assets/5970554/f1a38672-d8e2-4c04-a4c9-223b841599dd)

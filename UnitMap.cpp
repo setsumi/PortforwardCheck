@@ -149,7 +149,7 @@ void TFormMap::UpdateMap()
 	if (Form1->edtPublicIP->Text.IsEmpty())
 	{
 		SETUIVALUE(memoPublicGate->Text,
-			L"Press button (2) to determine the public IP address.");
+			L"Press button (2) to determine your public IP address.");
 	}
 	else
 	{

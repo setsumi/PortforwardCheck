@@ -15,7 +15,9 @@ String BytesToHexStr(unsigned char *bytes, int count);
 String BytesToHexStr(const TIdBytes &bytes);
 
 void t_RunProcess(String runcmd);
-String GetGateways();
+String t_GetGateways();
+inline int t_Max(int n1, int n2);
+void t_SetScrollWidth(TListBox *lb);
 
 // ---------------------------------------------------------------------------
 #endif

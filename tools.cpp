@@ -111,7 +111,7 @@ void t_RunProcess(String runcmd)
 }
 
 // ---------------------------------------------------------------------------
-String GetGateways()
+String t_GetGateways()
 {
 	String rv;
 	DWORD dwRetVal = 0;
@@ -182,6 +182,29 @@ String GetGateways()
 		free(pAdapterInfo);
 
 	return rv;
+}
+
+// ---------------------------------------------------------------------------
+int t_Max(int n1, int n2)
+{
+	if (n1 > n2)
+		return n1;
+	else
+		return n2;
+}
+
+// ---------------------------------------------------------------------------
+void t_SetScrollWidth(TListBox *lb)
+{
+	int MaxWidth = -1;
+	lb->Canvas->Font = lb->Font;
+	for (int i = 0; i < lb->Items->Count; i++)
+	{
+		MaxWidth = t_Max(MaxWidth, lb->Canvas->TextWidth(lb->Items->Strings[i]));
+	}
+	// consider non-client area
+	if (MaxWidth != -1)
+		lb->ScrollWidth = MaxWidth + lb->Width - lb->ClientWidth;
 }
 
 // ---------------------------------------------------------------------------

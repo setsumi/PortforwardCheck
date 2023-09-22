@@ -2,7 +2,7 @@ object FormMap: TFormMap
   Left = 0
   Top = 0
   Caption = 'Network Map'
-  ClientHeight = 327
+  ClientHeight = 347
   ClientWidth = 753
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -5509,36 +5509,39 @@ object FormMap: TFormMap
   OnClose = FormClose
   DesignSize = (
     753
-    327)
+    347)
   PixelsPerInch = 96
   TextHeight = 13
   object shapeWAN: TShape
     Left = 376
     Top = 8
     Width = 369
-    Height = 259
+    Height = 279
     Anchors = [akLeft, akTop, akBottom]
     Brush.Style = bsClear
     Pen.Style = psDot
     Shape = stRoundRect
+    ExplicitHeight = 259
   end
   object Shape3: TShape
     Left = 640
     Top = 100
     Width = 89
-    Height = 143
+    Height = 163
     Anchors = [akLeft, akTop, akBottom]
     Brush.Style = bsClear
+    ExplicitHeight = 143
   end
   object shapeLAN: TShape
     Left = 8
     Top = 8
     Width = 369
-    Height = 259
+    Height = 279
     Anchors = [akLeft, akTop, akBottom]
     Brush.Style = bsClear
     Pen.Style = psDot
     Shape = stRoundRect
+    ExplicitHeight = 259
   end
   object Label1: TLabel
     Left = 24
@@ -5555,11 +5558,12 @@ object FormMap: TFormMap
   end
   object Label2: TLabel
     Left = 24
-    Top = 196
+    Top = 216
     Width = 94
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'Local (internal) Port'
+    ExplicitTop = 196
   end
   object Label3: TLabel
     Left = 240
@@ -5610,38 +5614,25 @@ object FormMap: TFormMap
   end
   object Label8: TLabel
     Left = 383
-    Top = 196
+    Top = 216
     Width = 101
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'Public (external) Port'
+    ExplicitTop = 196
   end
   object Shape2: TShape
     Left = 240
-    Top = 207
+    Top = 212
     Width = 137
-    Height = 36
+    Height = 51
     Anchors = [akLeft, akBottom]
     Brush.Style = bsClear
     Shape = stRoundRect
   end
-  object Label9: TLabel
-    Left = 257
-    Top = 214
-    Width = 101
-    Height = 18
-    Anchors = [akLeft, akBottom]
-    Caption = 'Port Forwarding'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label10: TLabel
     Left = 162
-    Top = 209
+    Top = 229
     Width = 77
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -5652,6 +5643,7 @@ object FormMap: TFormMap
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 209
   end
   object Label11: TLabel
     Left = 657
@@ -5670,7 +5662,7 @@ object FormMap: TFormMap
   end
   object Label12: TLabel
     Left = 514
-    Top = 209
+    Top = 229
     Width = 125
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -5681,22 +5673,25 @@ object FormMap: TFormMap
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 209
   end
   object Label13: TLabel
     Left = 555
-    Top = 207
+    Top = 227
     Width = 60
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'TCP connect'
+    ExplicitTop = 207
   end
   object Label14: TLabel
     Left = 555
-    Top = 226
+    Top = 246
     Width = 59
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'or UDP send'
+    ExplicitTop = 226
   end
   object Label15: TLabel
     Left = 162
@@ -5712,11 +5707,19 @@ object FormMap: TFormMap
     Height = 13
     Caption = '----------------------------->'
   end
+  object Label17: TLabel
+    Left = 257
+    Top = 215
+    Width = 95
+    Height = 13
+    Anchors = [akLeft, akBottom]
+    Caption = #8593' select gateway IP'
+  end
   object memoLocalHost: TMemo
     Left = 24
     Top = 100
     Width = 137
-    Height = 89
+    Height = 109
     Anchors = [akLeft, akTop, akBottom]
     Lines.Strings = (
       'memoLocalHost')
@@ -5724,29 +5727,18 @@ object FormMap: TFormMap
     ScrollBars = ssVertical
     TabOrder = 0
     WordWrap = False
+    ExplicitHeight = 89
   end
   object edtLocalPort: TEdit
     Left = 24
-    Top = 215
+    Top = 235
     Width = 137
     Height = 21
     Anchors = [akLeft, akBottom]
     ReadOnly = True
-    TabOrder = 3
+    TabOrder = 4
     Text = 'edtLocalPort'
-  end
-  object memoLocalGate: TMemo
-    Left = 240
-    Top = 100
-    Width = 137
-    Height = 89
-    Anchors = [akLeft, akTop, akBottom]
-    Lines.Strings = (
-      'memoLocalGate')
-    ReadOnly = True
-    ScrollBars = ssVertical
-    TabOrder = 1
-    WordWrap = False
+    ExplicitTop = 215
   end
   object Panel1: TPanel
     Left = 280
@@ -5762,32 +5754,34 @@ object FormMap: TFormMap
     Font.Style = []
     ParentBackground = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 7
   end
   object memoPublicGate: TMemo
     Left = 376
     Top = 100
     Width = 137
-    Height = 89
+    Height = 109
     Anchors = [akLeft, akTop, akBottom]
     Lines.Strings = (
       'memoPublicGate')
     ReadOnly = True
-    TabOrder = 2
+    TabOrder = 3
+    ExplicitHeight = 89
   end
   object edtPublicPort: TEdit
     Left = 376
-    Top = 215
+    Top = 235
     Width = 137
     Height = 21
     Anchors = [akLeft, akBottom]
     ReadOnly = True
-    TabOrder = 4
+    TabOrder = 5
     Text = 'edtPublicPort'
+    ExplicitTop = 215
   end
   object btnSysInfo: TButton
     Left = 288
-    Top = 284
+    Top = 304
     Width = 161
     Height = 27
     Hint = 'IPCONFIG /ALL'
@@ -5801,6 +5795,44 @@ object FormMap: TFormMap
     ParentFont = False
     TabOrder = 6
     OnClick = btnSysInfoClick
+    ExplicitTop = 284
+  end
+  object lbLocalGate: TListBox
+    Left = 240
+    Top = 100
+    Width = 137
+    Height = 109
+    Anchors = [akLeft, akTop, akBottom]
+    ItemHeight = 13
+    Items.Strings = (
+      'lbLocalGate'
+      '1'
+      '2'
+      '2'
+      '3'
+      '3'
+      '4'
+      '4')
+    TabOrder = 1
+    OnClick = lbLocalGateClick
+    ExplicitHeight = 89
+  end
+  object btnPortForward: TButton
+    Left = 246
+    Top = 231
+    Width = 124
+    Height = 27
+    Hint = 'IPCONFIG /ALL'
+    Anchors = [akLeft, akBottom]
+    Caption = 'Port Forwarding'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = btnPortForwardClick
   end
   object ActionManager1: TActionManager
     Left = 48

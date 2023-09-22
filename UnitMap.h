@@ -12,6 +12,7 @@
 #include <Vcl.ActnList.hpp>
 #include <Vcl.ActnMan.hpp>
 #include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
+#include <Vcl.ComCtrls.hpp>
 
 // ---------------------------------------------------------------------------
 class TFormMap : public TForm
@@ -24,7 +25,6 @@ __published: // IDE-managed Components
 	TLabel *Label3;
 	TShape *shapeLAN;
 	TLabel *Label4;
-	TMemo *memoLocalGate;
 	TShape *shapeWAN;
 	TLabel *Label5;
 	TPanel *Panel1;
@@ -34,7 +34,6 @@ __published: // IDE-managed Components
 	TLabel *Label7;
 	TLabel *Label8;
 	TShape *Shape2;
-	TLabel *Label9;
 	TLabel *Label10;
 	TLabel *Label11;
 	TShape *Shape3;
@@ -46,10 +45,15 @@ __published: // IDE-managed Components
 	TActionManager *ActionManager1;
 	TAction *ActionHide;
 	TButton *btnSysInfo;
+	TListBox *lbLocalGate;
+	TLabel *Label17;
+	TButton *btnPortForward;
 
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall ActionHideExecute(TObject *Sender);
 	void __fastcall btnSysInfoClick(TObject *Sender);
+	void __fastcall btnPortForwardClick(TObject *Sender);
+	void __fastcall lbLocalGateClick(TObject *Sender);
 
 private: // User declarations
 protected:
@@ -59,6 +63,9 @@ public: // User declarations
 	__fastcall TFormMap(TComponent* Owner);
 
 	void Clear();
+	bool SelectGateway();
+    void AutoSelectGateway();
+	void UpdateMap();
 };
 
 // ---------------------------------------------------------------------------

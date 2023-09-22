@@ -1,15 +1,10 @@
 ﻿// ---------------------------------------------------------------------------
 #include <vcl.h>
-#pragma hdrstop
-
-// #include <sstream>
-// #include <iostream>
-// #include <iomanip>
 #include <list>
 #include <System.Net.HttpClient.hpp>
 #include <System.SysUtils.hpp>
-#include <IdStackWindows.hpp>
 #include <XMLDoc.hpp>
+#pragma hdrstop
 
 #include "Unit1.h"
 #include "tools.h"
@@ -424,7 +419,7 @@ void __fastcall TForm1::btnOpenScannerClick(TObject *Sender)
 	// open service url in browser
 	url_formatted = FormatScannerServiceURL(url, edtPublicIP->Text, port);
 	Log(L"http →Open: " + url_formatted);
-	ShellExecute(NULL, NULL, url_formatted.w_str(), NULL, NULL, SW_NORMAL);
+	ShellExecute(NULL, L"open", url_formatted.w_str(), NULL, NULL, SW_NORMAL);
 }
 
 // ---------------------------------------------------------------------------
@@ -811,7 +806,7 @@ void __fastcall TForm1::btnUpnpClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TForm1::btnMapClick(TObject *Sender)
 {
-	UpdateMap();
+	FormMap->UpdateMap();
 	FormMap->Show();
 	if (FormMap->WindowState == wsMinimized)
 	{
@@ -821,50 +816,11 @@ void __fastcall TForm1::btnMapClick(TObject *Sender)
 }
 
 // ---------------------------------------------------------------------------
-#define SETUIVALUE(var, value) if ((var) != (value)) (var) = (value);
-
-void TForm1::UpdateMap()
-{
-	// localhost info
-	String str;
-	TStringList *list = new TStringList();
-	TIdStackWindows *stack = new TIdStackWindows();
-	str = stack->HostName + L"\r\n";
-	stack->AddLocalAddressesToList(list);
-	str += list->Text;
-	SETUIVALUE(FormMap->memoLocalHost->Text, str);
-	SETUIVALUE(FormMap->edtLocalPort->Text, edtPortLocal->Text);
-
-	// gateway info
-	try
-	{
-		SETUIVALUE(FormMap->memoLocalGate->Text, GetGateways());
-	}
-	catch (Exception &ex)
-	{
-		SETUIVALUE(FormMap->memoLocalGate->Text, ex.Message);
-	}
-	if (edtPublicIP->Text.IsEmpty())
-	{
-		SETUIVALUE(FormMap->memoPublicGate->Text,
-			L"Press button (2) to determine the public IP address.");
-	}
-	else
-	{
-		SETUIVALUE(FormMap->memoPublicGate->Text, edtPublicIP->Text);
-	}
-	SETUIVALUE(FormMap->edtPublicPort->Text, edtPort->Text);
-
-	delete stack;
-	delete list;
-}
-
-// ---------------------------------------------------------------------------
 void __fastcall TForm1::tmrUITimer(TObject *Sender)
 {
 	if (FormMap->Visible)
 	{
-		UpdateMap();
+		FormMap->UpdateMap();
 	}
 }
 

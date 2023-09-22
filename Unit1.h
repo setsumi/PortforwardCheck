@@ -119,7 +119,6 @@ private: // User declarations
 	void Save();
 	void GetPublicIP();
 	void UpdateGUI();
-	void UpdateMap();
 
 public: // User declarations
 	__fastcall TForm1(TComponent* Owner);

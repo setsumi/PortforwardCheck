@@ -4,6 +4,8 @@ http://whatismyip.akamai.com
 http://api.ipify.org
 https://api4.ipify.org/
 https://api6.ipify.org/
+https://api.ip.sb/ip
+https://api.ip.sb/geoip (full info json)
 -----------------------------------------------------
 TCP
 
